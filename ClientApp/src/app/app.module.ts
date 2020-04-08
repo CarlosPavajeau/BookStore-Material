@@ -40,11 +40,6 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ]),
     BrowserAnimationsModule,
     AppRoutingModule
   ],
