@@ -1,19 +1,363 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
 
-code {
-  color: #e01a76;
-}
+* {
+  margin: 0;
+  padding: 0;
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  --yellow_sunshine: #FFFB16;
+  --electric_yellow: #FFFB33;
+  --maize: #FFEB70;
+  --sizzling_sunrise: #FFDB00;
+  --spring_green: #16FF87;
+  --vivid_malachite: #14CC14;
+  --wageningen_green: #2FB927;
+  --wageningen_green_2: #3CAF3C;
+  --go_green: #00CC66;
+  --caribbean_green: #18C29C;
+  --lime_green: #48D525;
+  --dodger_blue: #168FFF;
+  --blue_ryb: #004CE5;
+  --blue_crayola: #2062E8;
+  --royal_azure: #0039AC;
+  --new_car: #2059CC;
+  --lapis_lazuli: #2274A5;
+  --blue_shappire: #126872;
+  --orange_red: #FF3F00;
+  --international_orange: #FE4E00;
+  --rosewood: #5A0001;
+  --sunset_orange: #F35D59;
+  --vivid_red: #F00713;
+  --isabelline: #F5EFED;
+  --anti_flash_white: #F2F2F2;
+  --silver: #BFBFBF;
+  --gainsboro: #D9D9D9;
+  --xanadu: #728972;
+  --grullo: #A99B98;
+  --rich_black: #07393D;
+  --licorice: #141115;
+  --arsenic: #3F4042;
+  --rich_black_fogra29: #00091D;
 }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+a {
+  text-decoration: none !important;
+}
+
+* {
+  outline: none !important;
+}
+
+*::-webkit-scrollbar {
+  width: 0%;
+}
+
+app-root {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+app-nav-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.mat-card {
+  margin: 15px 0;
+}
+
+.mat-card-detail > .mat-card {
+  max-width: 400px;
+}
+
+.form-element, input, mat-form-field {
+  width: 100%;
+}
+
+.royal_azure {
+  color: white;
+}
+
+.vivid_red {
+  color: white;
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+}
+
+.center-block-content {
+  display: block;
+  margin: 0 auto;
+}
+
+.center-element {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.yellow_sunshine {
+  background-color: var(--yellow_sunshine);
+}
+
+.electric_yellow {
+  background-color: var(--electric_yellow);
+}
+
+.maize {
+  background-color: var(--maize);
+}
+
+.sizzling_sunrise {
+  background-color: var(--sizzling_sunrise);
+}
+
+.spring_green {
+  background-color: var(--spring_green);
+}
+
+.vivid_malachite {
+  background-color: var(--vivid_malachite);
+}
+
+.wageningen_green {
+  background-color: var(--wageningen_green);
+}
+
+.wageningen_green_2 {
+  background-color: var(--wageningen_green_2);
+}
+
+.go_green {
+  background-color: var(--go_green);
+}
+
+.caribbean_green {
+  background-color: var(--caribbean_green);
+}
+
+.lime_green {
+  background-color: var(--lime_green);
+}
+
+.dodger_blue {
+  background-color: var(--dodger_blue);
+}
+
+.blue_ryb {
+  background-color: var(--blue_ryb);
+}
+
+.blue_crayola {
+  background-color: var(--blue_crayola);
+}
+
+.royal_azure {
+  background-color: var(--royal_azure);
+}
+
+.new_car {
+  background-color: var(--new_car);
+}
+
+.lapis_lazuli {
+  background-color: var(--lapis_lazuli);
+}
+
+.blue_shappire {
+  background-color: var(--blue_shappire);
+}
+
+.orange_red {
+  background-color: var(--orange_red);
+}
+
+.international_orange {
+  background-color: var(--international_orange);
+}
+
+.rosewood {
+  background-color: var(--rosewood);
+}
+
+.sunset_orange {
+  background-color: var(--sunset_orange);
+}
+
+.vivid_red {
+  background-color: var(--vivid_red);
+}
+
+.isabelline {
+  background-color: var(--isabelline);
+}
+
+.anti_flash_white {
+  background-color: var(--anti_flash_white);
+}
+
+.silver {
+  background-color: var(--silver);
+}
+
+.gainsboro {
+  background-color: var(--gainsboro);
+}
+
+.xanadu {
+  background-color: var(--xanadu);
+}
+
+.grullo {
+  background-color: var(--grullo);
+}
+
+.rich_black {
+  background-color: var(--rich_black);
+}
+
+.licorice {
+  background-color: var(--licorice);
+}
+
+.arsenic {
+  background-color: var(--arsenic);
+}
+
+.rich_black_fogra29 {
+  background-color: var(--rich_black_fogra29);
+}
+
+.text_yellow_sunshine {
+  color: var(--yellow_sunshine);
+}
+
+.text_electric_yellow {
+  color: var(--electric_yellow);
+}
+
+.text_maize {
+  color: var(--maize);
+}
+
+.text_sizzling_sunrise {
+  color: var(--sizzling_sunrise);
+}
+
+.text_spring_green {
+  color: var(--spring_green);
+}
+
+.text_vivid_malachite {
+  color: var(--vivid_malachite);
+}
+
+.text_wageningen_green {
+  color: var(--wageningen_green);
+}
+
+.text_wageningen_green_2 {
+  color: var(--wageningen_green_2);
+}
+
+.text_go_green {
+  color: var(--go_green);
+}
+
+.text_dodger_blue {
+  color: var(--dodger_blue);
+}
+
+.text_blue_ryb {
+  color: var(--blue_ryb);
+}
+
+.text_blue_crayola {
+  color: var(--blue_crayola);
+}
+
+.text_royal_azure {
+  color: var(--royal_azure);
+}
+
+.text_new_car {
+  color: var(--new_car);
+}
+
+.text_lapis_lazuli {
+  color: var(--lapis_lazuli);
+}
+
+.text_orange_red {
+  color: var(--orange_red);
+}
+
+.text_international_orange {
+  color: var(--international_orange);
+}
+
+.text_rosewood {
+  color: var(--rosewood);
+}
+
+.text_sunset_orange {
+  color: var(--sunset_orange);
+}
+
+.text_isabelline {
+  color: var(--isabelline);
+}
+
+.text_anti_flash_white {
+  color: var(--anti_flash_white);
+}
+
+.text_silver {
+  color: var(--silver);
+}
+
+.text_gainsboro {
+  color: var(--gainsboro);
+}
+
+.text_xanadu {
+  color: var(--xanadu);
+}
+
+.text_grullo {
+  color: var(--grullo);
+}
+
+.text_rich_black {
+  color: var(--rich_black);
+}
+
+.text_licorice {
+  color: var(--licorice);
+}
+
+.text_arsenic {
+  color: var(--arsenic);
+}
+
+.text_rich_black_fogra29 {
+  color: var(--rich_black_fogra29);
+}
