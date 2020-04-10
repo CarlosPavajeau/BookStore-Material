@@ -1,1 +1,23 @@
-<p>offers works!</p>
+<section id="books">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12 col-sm-6 col-md-4 mx-auto mat-card-detail" *ngFor="let book of books">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title><a routerLink="/book/{{book.id}}">{{book.title}}</a></mat-card-title>
+            <mat-card-subtitle>Autor: {{book.author}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="{{book.coverPage}}" alt="{{book.title}}">
+          <mat-card-content>
+            <p>
+              {{book.description | truncateText}}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <a mat-button target="_blank"href="{{book.amazonLink}}">View in amazon</a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</section>
