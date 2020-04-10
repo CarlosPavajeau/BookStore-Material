@@ -1,18 +1,28 @@
-a.navbar-brand {
-  white-space: normal;
+a, button {
+  color: white;
+  text-decoration: none !important;
+}
+
+mat-toolbar.royal_azure a.active {
+  background-color: var(--blue_ryb);
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.main-content {
+  display: inline-block;
+}
+
+.main-content h2 {
+  margin-right: 20px;
+  color: white;
   text-align: center;
-  word-break: break-all;
+
+  display: inline-block;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
