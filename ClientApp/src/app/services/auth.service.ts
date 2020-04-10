@@ -52,10 +52,6 @@ export class AuthService {
     }
   }
 
-  setToken(token: string): void {
-    localStorage.setItem('accessToken', token);
-  }
-
   getToken(): string {
     let user: User = this.getCurrentUser();
 
@@ -69,11 +65,15 @@ export class AuthService {
   logoutUser(): Observable<User> {
     let currentUser: User = this.getCurrentUser();
     let accessToken = currentUser.token;
-    localStorage.removeItem('currentUser');
+    this.removeUser();
     return this.http.post<User>(`${this.authUrl}/Logout?access_token=${accessToken}`, this.httpOptions)
       .pipe(
         tap(_ => this.httpErrorHandler.log('User logout')),
         catchError(this.httpErrorHandler.handleError<User>('logoutUser', null))
       );
+  }
+
+  removeUser(): void {
+    localStorage.removeItem('currentUser');
   }
 }
