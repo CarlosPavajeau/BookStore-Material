@@ -14,6 +14,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 
 
@@ -33,7 +34,8 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MatDialogModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTooltipModule
   ],
   exports: [
     MatButtonModule,
@@ -49,7 +51,8 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MatDialogModule,
     MatCheckboxModule,
     MatChipsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatTooltipModule
   ]
 })
 export class MaterialModule { }
