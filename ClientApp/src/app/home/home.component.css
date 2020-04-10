@@ -1,0 +1,17 @@
+#books {
+  border-radius: 0.25rem;
+  background: #F9F9F9 !important;
+  margin-top: 30px;
+}
+
+.mat-card {
+  min-height: 312px;
+}
+
+.mat-card-title {
+  color: #007BFF;
+}
+
+.mat-card-content {
+  text-align: justify;
+}
