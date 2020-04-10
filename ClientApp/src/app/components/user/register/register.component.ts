@@ -25,11 +25,15 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userForm = this.formBuilder.group({
-      userName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]]
-    });
+    if (this.authService.getCurrentUser()) {
+      this.router.navigateByUrl('user/profile');
+    } else {
+      this.userForm = this.formBuilder.group({
+        userName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]]
+      });
+    }
   }
 
   onSubmit() {
@@ -42,19 +46,12 @@ export class RegisterComponent implements OnInit {
 
       this.authService.registerUser(user)
         .subscribe(user => {
-          console.log(user);
           if (user) {
-            this.onReset();
             this.authService.setUser(user);
-            this.router.navigateByUrl(`/profile`);
+            window.location.reload();
           }
         });
 
     } else console.log('Invalid form');
   }
-
-  onReset() {
-
-  }
-
 }
