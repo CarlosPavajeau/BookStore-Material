@@ -15,7 +15,14 @@
             </p>
             <mat-chip-list>
               <mat-chip>Price: {{book.price}}$</mat-chip>
-              <mat-chip class="float-right">Language: {{book.language}}</mat-chip>
+              <mat-chip>Language: {{book.language}}</mat-chip>
+              <div *ngIf="book.offer">
+                <button mat-icon-button matTooltip="This book is in offer" [matTooltipPosition]="'above'">
+                  <mat-icon>
+                  local_offer
+                </mat-icon>
+              </button>
+            </div>
             </mat-chip-list>
           </mat-card-content>
           <mat-card-actions>
