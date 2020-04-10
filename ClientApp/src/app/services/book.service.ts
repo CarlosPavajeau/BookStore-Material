@@ -15,8 +15,7 @@ export class BookService {
   readonly bookUrl = 'api/Books';
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.authService.getToken()
+      'Content-Type': 'application/json'
     })
   };
 
