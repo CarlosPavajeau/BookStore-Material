@@ -9,15 +9,16 @@ import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { Page404Component } from './components/page404/page404.component';
+import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'offers', component: OffersComponent },
+  { path: 'offers', component: OffersComponent, canActivate: [AuthGuard] },
   { path: 'book/:id', component: BookDetailsComponent },
-  { path: 'admin/books', component: BooksComponent },
+  { path: 'admin/books', component: BooksComponent, canActivate: [AuthGuard] },
   { path: 'user/login', component: LoginComponent },
   { path: 'user/register', component: RegisterComponent },
-  { path: 'user/profile', component: ProfileComponent },
+  { path: 'user/profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: '**', component: Page404Component }
 ];
 
