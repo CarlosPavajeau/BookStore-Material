@@ -1,1 +1,21 @@
-<p>profile works!</p>
+<section id="profile" class="container">
+  <div class="row mt-5">
+    <div class="col-lg-4 col-sm-6 col-12 text-center">
+      <mat-card>
+        <mat-card-header class="center-content">
+          <mat-card-title>User profile</mat-card-title>
+        </mat-card-header>
+        <mat-icon class="md-48">person</mat-icon>
+        <mat-card-content>
+          <p>
+            Username: {{user.name}}
+          </p>
+          <p>
+            Email: {{user.email}}
+          </p>
+          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga, sunt!</span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</section>
