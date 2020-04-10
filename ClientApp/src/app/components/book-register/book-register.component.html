@@ -1,0 +1,54 @@
+<h1 mat-dialog-title [textContent]="(bookId) ? 'Update book' : 'Save new book'"></h1>
+<div mat-dialog-content>
+  <form [formGroup]="bookForm">
+    <div class="form-element">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Example: Shrek" formControlName="title">
+      </mat-form-field>
+    </div>
+    <div class="form-element">
+      <mat-form-field>
+        <mat-label>Language</mat-label>
+        <input matInput placeholder="Example: English" formControlName="language">
+      </mat-form-field>
+    </div>
+    <div class="form-element">
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Enter a book description" formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="form-element">
+      <mat-form-field>
+        <mat-label>CoverPage</mat-label>
+        <input matInput placeholder="Link of a cover page" formControlName="coverPage">
+      </mat-form-field>
+    </div>
+    <div class="form-element">
+      <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input type="number" matInput placeholder="Example: 3000" formControlName="price">
+      </mat-form-field>
+    </div>
+    <div class="form-element">
+      <mat-form-field>
+        <mat-label>Amazon link</mat-label>
+        <input matInput placeholder="Link to Amazon" formControlName="amazonLink">
+      </mat-form-field>
+    </div>
+    <div class="form-element">
+      <mat-form-field>
+        <mat-label>Author</mat-label>
+        <input matInput placeholder="Example: Manolo" formControlName="author">
+      </mat-form-field>
+    </div>
+    <div class="form-element">
+      <mat-checkbox formControlName="offer">Offer</mat-checkbox>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()" class="vivid_red float-right">Cancel</button>
+  <button mat-button type="submit" class="royal_azure float-right" (click)="onSubmit()" [textContent]="(bookId) ? 'Update' : 'Save'"></button>
+</div>
