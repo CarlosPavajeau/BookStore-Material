@@ -22,6 +22,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 import { BookRegisterComponent } from './components/book-register/book-register.component';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthService } from './services/auth.service';
+import { BookService } from './services/book.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,11 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
     AppRoutingModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthService,
+    BookService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
