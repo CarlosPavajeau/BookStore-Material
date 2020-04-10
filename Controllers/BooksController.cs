@@ -45,12 +45,13 @@ namespace BookStore.Controllers
             return new BookViewModel(book);
         }
 
-        // GET: api/Books?offer=1
+        // GET: api/Books/Offers
         [HttpGet("[action]")]
         public async Task<ActionResult<IEnumerable<BookViewModel>>> Offers()
         {
             return await _context.Books.Where(b => b.Offer == true).
-                    Select(book => new BookViewModel(book)).ToListAsync();
+                    Select(book => new BookViewModel(book)).
+                    ToListAsync();
         }
 
         // PUT: api/Books/5
