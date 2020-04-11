@@ -51,7 +51,7 @@ export class BookService {
 
   saveBook(book: Book): Observable<Book> {
     let token = this.authService.getToken();
-    return this.http.post<Book>(`${this.bookUrl}?access_token=${token}`, book, this.httpOptions)
+    return this.http.post<Book>(`${this.bookUrl}`, book, this.httpOptions)
       .pipe(
         tap(_ => console.log('Book saved')),
         catchError(this.httpErrorHandler.handleError<Book>('saveBook', null))
@@ -60,7 +60,7 @@ export class BookService {
 
   updateBook(book: Book): Observable<Book> {
     let token = this.authService.getToken();
-    return this.http.put<Book>(`${this.bookUrl}/${book.id}?access_token=${token}`, book, this.httpOptions)
+    return this.http.put<Book>(`${this.bookUrl}/${book.id}`, book, this.httpOptions)
       .pipe(
         tap(_ => console.log('Book Updated')),
         catchError(this.httpErrorHandler.handleError<Book>('updateBook', null))
@@ -69,7 +69,7 @@ export class BookService {
 
   deleteBook(id: string): Observable<Book> {
     let token = this.authService.getToken();
-    return this.http.delete<Book>(`${this.bookUrl}/${id}?access_token=${token}`, this.httpOptions)
+    return this.http.delete<Book>(`${this.bookUrl}/${id}`, this.httpOptions)
       .pipe(
         tap(_ => console.log('Book deleted')),
         catchError(this.httpErrorHandler.handleError<Book>('deleteBook', null))

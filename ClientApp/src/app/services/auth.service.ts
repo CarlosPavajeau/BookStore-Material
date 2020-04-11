@@ -66,7 +66,7 @@ export class AuthService {
     let currentUser: User = this.getCurrentUser();
     let accessToken = currentUser.token;
     this.removeUser();
-    return this.http.post<User>(`${this.authUrl}/Logout?access_token=${accessToken}`, this.httpOptions)
+    return this.http.post<User>(`${this.authUrl}/Logout`, this.httpOptions)
       .pipe(
         tap(_ => this.httpErrorHandler.log('User logout')),
         catchError(this.httpErrorHandler.handleError<User>('logoutUser', null))
