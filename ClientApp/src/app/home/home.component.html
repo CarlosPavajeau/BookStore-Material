@@ -2,7 +2,7 @@
 <section id="books">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-xl-4 col-sm-6 col-md-2 mx-auto mat-card-detail" *ngFor="let book of books">
+      <div class="col-lg-4 col-xl-4 col-sm-6 col-md-6 mx-auto mat-card-detail" *ngFor="let book of books">
         <mat-card>
           <mat-card-header>
             <mat-card-title><a routerLink="/book/{{book.id}}">{{book.title}}</a></mat-card-title>
