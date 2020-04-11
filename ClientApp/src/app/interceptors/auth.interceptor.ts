@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (this.authService.getCurrentUser()) {
       request = request.clone({
         setHeaders: {
-          Authorization: `Beared ${this.authService.getToken()}`
+          Authorization: `Bearer ${this.authService.getToken()}`
         }
       });
 
