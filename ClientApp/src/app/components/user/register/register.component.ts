@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigateByUrl('user/profile');
     } else {
       this.userForm = this.formBuilder.group({
-        userName: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
+        username: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(30)]]
       });
@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.userForm.valid) {
       let user: User = {
-        name: this.controls['userName'].value,
+        name: this.controls['username'].value,
         email: this.controls['email'].value,
         password: this.controls['password'].value
       };
