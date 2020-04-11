@@ -5,42 +5,62 @@
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input matInput placeholder="Example: Shrek" formControlName="title">
+        <mat-hint>Enter book title</mat-hint>
+        <mat-error *ngIf="controls['title'].hasError('required')">Title is required</mat-error>
+        <mat-error *ngIf="controls['title'].hasError('minlength')">Title must have at least 10 characters</mat-error>
       </mat-form-field>
     </div>
     <div class="form-element">
       <mat-form-field>
         <mat-label>Language</mat-label>
         <input matInput placeholder="Example: English" formControlName="language">
+        <mat-hint>Enter book language</mat-hint>
+        <mat-error *ngIf="controls['language'].hasError('required')">Language is required</mat-error>
       </mat-form-field>
     </div>
     <div class="form-element">
       <mat-form-field>
         <mat-label>Description</mat-label>
         <textarea matInput placeholder="Enter a book description" formControlName="description"></textarea>
+        <mat-hint>Enter book description</mat-hint>
+        <mat-error *ngIf="controls['description'].hasError('required')">Description is required</mat-error>
+        <mat-error *ngIf="controls['description'].hasError('maxlength')">Description must not exceed 350 characters</mat-error>
       </mat-form-field>
     </div>
     <div class="form-element">
       <mat-form-field>
         <mat-label>CoverPage</mat-label>
         <input matInput placeholder="Link of a cover page" formControlName="coverPage">
+        <mat-hint>Enter cover page link</mat-hint>
+        <mat-error *ngIf="controls['coverPage'].hasError('required')">Cover page link is required</mat-error>
+        <mat-error *ngIf="controls['coverPage'].hasError('pattern')">This field must be a link to image</mat-error>
       </mat-form-field>
     </div>
     <div class="form-element">
       <mat-form-field>
         <mat-label>Price</mat-label>
         <input type="number" matInput placeholder="Example: 3000" formControlName="price">
+        <mat-hint>Enter book price</mat-hint>
+        <mat-error *ngIf="controls['price'].hasError('required')">Price is required</mat-error>
+        <mat-error *ngIf="controls['price'].hasError('min')">Price must be greater than or equal to 1</mat-error>
       </mat-form-field>
     </div>
     <div class="form-element">
       <mat-form-field>
         <mat-label>Amazon link</mat-label>
         <input matInput placeholder="Link to Amazon" formControlName="amazonLink">
+        <mat-hint>Enter cover page link</mat-hint>
+        <mat-error *ngIf="controls['amazonLink'].hasError('required')">Amazon link is required</mat-error>
+        <mat-error *ngIf="controls['amazonLink'].hasError('pattern')">This field must be a link to amazon</mat-error>
       </mat-form-field>
     </div>
     <div class="form-element">
       <mat-form-field>
         <mat-label>Author</mat-label>
         <input matInput placeholder="Example: Manolo" formControlName="author">
+        <mat-hint>Enter book author</mat-hint>
+        <mat-error *ngIf="controls['author'].hasError('required')">Author is required</mat-error>
+        <mat-error *ngIf="controls['author'].hasError('minlength')">Author name must have at least 5 characters</mat-error>
       </mat-form-field>
     </div>
     <div class="form-element">

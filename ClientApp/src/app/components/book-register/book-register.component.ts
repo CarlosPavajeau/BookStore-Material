@@ -37,10 +37,10 @@ export class BookRegisterComponent implements OnInit {
     this.bookForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(10)]],
       language: ['', [Validators.required]],
-      description: ['', [Validators.required, Validators.maxLength(250)]],
-      coverPage: ['', [Validators.required]],
+      description: ['', [Validators.required, Validators.maxLength(350)]],
+      coverPage: ['', [Validators.required, Validators.pattern('^https?:\/\/([\w]+)?(?:\.\w+)?\/?.*\.((png)|(jpe)|(jpg))')]],
       price: ['', [Validators.required, Validators.min(1)]],
-      amazonLink: ['', [Validators.required]],
+      amazonLink: ['', [Validators.required, Validators.pattern('^https:\/\/www\.amazon\.com\/([\w]+)?[/#?]?.*$')]],
       author: ['', [Validators.required, Validators.minLength(5)]],
       offer: [false]
     });
@@ -89,6 +89,9 @@ export class BookRegisterComponent implements OnInit {
           this.dialogRef.close(result);
         });
       }
+    }
+    else {
+      console.log(this.controls['coverPage'].errors);
     }
   }
 
