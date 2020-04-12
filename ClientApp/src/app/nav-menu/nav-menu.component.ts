@@ -18,12 +18,11 @@ export class NavMenuComponent implements OnInit {
 
   onLogout(): void {
     this.authService.logoutUser();
-    this.isLogged = false;
     window.location.reload();
   }
 
   onCheckUser(): void {
-    if (this.authService.getCurrentUser()) {
+    if (this.authService.userLoggedIn()) {
       this.isLogged = true;
     }
     else {

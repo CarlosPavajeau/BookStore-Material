@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.authService.getCurrentUser()) {
+    if (this.authService.userLoggedIn()) {
       this.router.navigateByUrl('user/profile');
     } else {
       this.userForm = this.formBuilder.group({
