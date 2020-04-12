@@ -1,8 +1,10 @@
 using BookStore.Data;
+using BookStore.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +33,10 @@ namespace BookStore
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings")["key"]);
 
