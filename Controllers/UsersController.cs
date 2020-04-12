@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using BookStore.Data;
+using BookStore.Models;
+using BookStore.Models.EditModels;
+using BookStore.Models.InputModels;
+using BookStore.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BookStore.Data;
-using BookStore.Models;
-using BookStore.Models.ViewModels;
-using BookStore.Models.InputModels;
-using Microsoft.AspNetCore.Authorization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BookStore.Controllers
 {
@@ -23,67 +22,68 @@ namespace BookStore.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly SignInManager<ApplicationUser> _sigInManager;
+        private UserManager<ApplicationUser> _userManager;
 
-        public UsersController(ApplicationDbContext context, IConfiguration configuration)
+        public UsersController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            IConfiguration configuration)
         {
-            _context = context;
+            _sigInManager = signInManager;
+            _userManager = userManager;
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
-
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UserViewModel>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            ApplicationUser user = await _userManager.FindByIdAsync(id.ToString());
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return new UserViewModel(user);
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Users/5?token={token}
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUser(int id, [FromQuery] string token, UserEditModel userEdit)
         {
-            if (id != user.Id)
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
+                ApplicationUser user = await _userManager.FindByIdAsync(id.ToString());
 
-            _context.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
+                if (user != null)
                 {
-                    return NotFound();
+                    var result = await _userManager.ResetPasswordAsync(user, token, userEdit.Password);
+
+                    if (result.Succeeded)
+                    {
+                        return Ok();
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 else
                 {
-                    throw;
+                    return NotFound();
                 }
             }
-
-            return NoContent();
+            else
+            {
+                return BadRequest(ModelState);
+            }
+            
         }
 
         // POST: api/Users
@@ -93,16 +93,28 @@ namespace BookStore.Controllers
         [HttpPost]
         public async Task<ActionResult<UserViewModel>> PostUser(UserInputModel model)
         {
-            User user = new User()
+            if (ModelState.IsValid)
             {
-                Name = model.Name,
-                Password = model.Password,
-                Email = model.Email
-            };
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+                ApplicationUser user = new ApplicationUser
+                {
+                    UserName = model.Name,
+                    Email = model.Email,
+                };
+                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
-            return GenerateAuthUser(user);
+                if (result.Succeeded)
+                {
+                    return GenerateAuthUser(user);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         // POST: api/Users/Login
@@ -110,25 +122,33 @@ namespace BookStore.Controllers
         [HttpPost("[action]")]
         public async Task<ActionResult<UserViewModel>> Login(LoginRequest model)
         {
-            User user = await (from u in _context.Users
-                               where u.Name == model.Name
-                               select u).SingleOrDefaultAsync();
+            if (ModelState.IsValid)
+            {
+                Microsoft.AspNetCore.Identity.SignInResult result = await _sigInManager.PasswordSignInAsync(model.Name, model.Password, isPersistent: false, lockoutOnFailure: false);
 
-            if (user is null)
-                return NotFound();
-
-            if (user.Password != model.Password)
-                return NotFound();
-
-            return GenerateAuthUser(user);
+                if (result.Succeeded)
+                {
+                    ApplicationUser user = await _userManager.FindByNameAsync(model.Name);
+                    return GenerateAuthUser(user);
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return BadRequest(ModelState);
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
-        private ActionResult<UserViewModel> GenerateAuthUser(User user)
+        private ActionResult<UserViewModel> GenerateAuthUser(ApplicationUser user)
         {
             UserViewModel userView = new UserViewModel(user);
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings")["Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            byte[] key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings")["Key"]);
+            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
@@ -138,38 +158,10 @@ namespace BookStore.Controllers
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
             userView.Token = tokenHandler.WriteToken(token);
 
             return userView;
-        }
-
-        // POST: api/Users/Logout
-        [HttpPost("[action]")]
-        public async Task<ActionResult<UserViewModel>> Logout([FromQuery] string token)
-        {
-            return null;
-        }
-
-        // DELETE: api/Users/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
-        {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return user;
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.Users.Any(e => e.Id == id);
         }
     }
 }
