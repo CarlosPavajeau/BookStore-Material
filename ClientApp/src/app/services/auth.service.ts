@@ -62,15 +62,12 @@ export class AuthService {
     }
   }
 
-  logoutUser(): Observable<User> {
-    let currentUser: User = this.getCurrentUser();
-    let accessToken = currentUser.token;
+  userLoggedIn(): boolean {
+    return this.getCurrentUser() != null;
+  }
+
+  logoutUser(): void {
     this.removeUser();
-    return this.http.post<User>(`${this.authUrl}/Logout`, this.httpOptions)
-      .pipe(
-        tap(_ => this.httpErrorHandler.log('User logout')),
-        catchError(this.httpErrorHandler.handleError<User>('logoutUser', null))
-      );
   }
 
   removeUser(): void {
