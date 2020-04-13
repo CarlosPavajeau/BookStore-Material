@@ -39,9 +39,9 @@ namespace BookStore.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserViewModel>> GetUser(int id)
+        public async Task<ActionResult<UserViewModel>> GetUser(string id)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(id.ToString());
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
             {
@@ -55,11 +55,11 @@ namespace BookStore.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, [FromQuery] string token, UserEditModel userEdit)
+        public async Task<IActionResult> PutUser(string id, [FromQuery] string token, UserEditModel userEdit)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = await _userManager.FindByIdAsync(id.ToString());
+                ApplicationUser user = await _userManager.FindByIdAsync(id);
 
                 if (user != null)
                 {
@@ -124,7 +124,8 @@ namespace BookStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                Microsoft.AspNetCore.Identity.SignInResult result = await _sigInManager.PasswordSignInAsync(model.Name, model.Password, isPersistent: false, lockoutOnFailure: false);
+                Microsoft.AspNetCore.Identity.SignInResult result = await _sigInManager.PasswordSignInAsync(model.Name, model.Password, 
+                                                                                                            isPersistent: false, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
