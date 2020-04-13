@@ -31,7 +31,7 @@ namespace BookStore
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseMySql(Configuration.GetConnectionString("MySql"));
             });
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -68,7 +68,7 @@ namespace BookStore
                     TermsOfService = new Uri("https://cla.dotnetfoundation.org/"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Carlos Andrés Pavajeau Max",
+                        Name = "Carlos Andrï¿½s Pavajeau Max",
                         Email = "cantte098@gmail.com",
                         Url = new Uri("https://github.com/cantte/")
                     },
