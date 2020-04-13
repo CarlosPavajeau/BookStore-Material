@@ -1,21 +1,40 @@
-<nav>
-  <mat-toolbar class="royal_azure">
-    <div class="main-content">
-      <h2 routerLink="/"><a>BookStore</a></h2>
-      <a mat-button routerLink="/"
-         routerLinkActive="active"
-         [routerLinkActiveOptions]="{ exact: true }">
-        Home
-      </a>
-      <a mat-button routerLink="offers" routerLinkActive="active">Offers</a>
-    </div>
-    <div class="spacer"></div>
-    <div class="secondary-content">
-      <a mat-button routerLink="user/register" routerLinkActive="active" *ngIf="!isLogged">Register</a>
-      <a mat-button routerLink="user/profile" routerLinkActive="active" *ngIf="isLogged">Profile</a>
-      <a mat-button routerLink="admin/books" routerLinkActive="active" *ngIf="isLogged">Books</a>
-      <a mat-button routerLink="user/login" routerLinkActive="active" *ngIf="!isLogged">Login</a>
-      <button mat-button (click)="onLogout()" *ngIf="isLogged">Logout</button>
-    </div>
-  </mat-toolbar>
-</nav>
+<mat-sidenav-container fullscreen>
+  <mat-sidenav-content>
+    <mat-toolbar class="royal_azure mat-elevation-z6">
+      <button mat-icon-button (click)="sidenav.toggle()" fxShow="false" fxShow.lt-md>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="main-content">
+        <h2 routerLink="/"><a>BookStore</a></h2>
+        <a mat-button routerLink="/"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }">
+          Home
+        </a>
+        <a mat-button routerLink="offers" routerLinkActive="active">Offers</a>
+      </div>
+      <div class="spacer"></div>
+      <div class="secondary-content" fxShow="true" fxHide.lt-md>
+        <a mat-button routerLink="user/register" routerLinkActive="active" *ngIf="!isLogged">Register</a>
+        <a mat-button routerLink="user/profile" routerLinkActive="active" *ngIf="isLogged">Profile</a>
+        <a mat-button routerLink="admin/books" routerLinkActive="active" *ngIf="isLogged">Books</a>
+        <a mat-button routerLink="user/login" routerLinkActive="active" *ngIf="!isLogged">Login</a>
+        <a mat-button (click)="onLogout()" *ngIf="isLogged">Logout</a>
+      </div>
+    </mat-toolbar>
+    <div></div>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-content>
+  <mat-sidenav #sidenav class="royal_azure">
+    <h1>BookStore</h1>
+    <mat-list>
+      <mat-list-item *ngIf="!isLogged"><a mat-button routerLink="user/register" routerLinkActive="active">Register</a></mat-list-item>
+      <mat-list-item *ngIf="isLogged"><a mat-button routerLink="user/profile" routerLinkActive="active">Profile</a></mat-list-item>
+      <mat-list-item *ngIf="isLogged"><a mat-button routerLink="admin/books" routerLinkActive="active">Books</a></mat-list-item>
+      <mat-list-item *ngIf="!isLogged"><a mat-button routerLink="user/login" routerLinkActive="active">Login</a></mat-list-item>
+      <mat-list-item *ngIf="isLogged"><a mat-button (click)="onLogout()" href="#">Logout</a></mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+</mat-sidenav-container>

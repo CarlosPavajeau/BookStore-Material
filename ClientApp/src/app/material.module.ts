@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { MatRadioModule } from "@angular/material/radio";
@@ -15,6 +14,8 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatListModule } from "@angular/material/list";
 
 
 
@@ -35,7 +36,9 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatCheckboxModule,
     MatChipsModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSidenavModule,
+    MatListModule
   ],
   exports: [
     MatButtonModule,
@@ -52,7 +55,9 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatCheckboxModule,
     MatChipsModule,
     MatPaginatorModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSidenavModule,
+    MatListModule
   ]
 })
 export class MaterialModule { }

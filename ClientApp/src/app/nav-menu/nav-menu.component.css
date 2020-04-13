@@ -3,8 +3,16 @@ a, button {
   text-decoration: none !important;
 }
 
-mat-toolbar.royal_azure a.active {
+mat-toolbar.royal_azure a.active, mat-sidenav.royal_azure a.active {
   background-color: var(--blue_ryb);
+}
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
 }
 
 .spacer {
@@ -24,5 +32,18 @@ mat-toolbar.royal_azure a.active {
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+mat-sidenav {
+  min-width: 250px;
+}
+
+mat-sidenav h1 {
+  text-align: center;
+  margin-top: 25px;
+}
+
+mat-list-item a {
+  width: 100%;
 }
 

@@ -56,25 +56,13 @@ a {
   width: 0%;
 }
 
-app-root {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  flex-direction: column;
-  position: absolute;
-  top: 50px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
 app-nav-menu {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 2;
+  height: 100%;
 }
 
 .mat-card {
@@ -87,6 +75,10 @@ app-nav-menu {
 
 .form-element, input, mat-form-field {
   width: 100%;
+}
+
+.container {
+  margin-top: 85px !important;
 }
 
 .royal_azure {
