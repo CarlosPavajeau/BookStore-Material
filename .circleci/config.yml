@@ -16,6 +16,9 @@ jobs:
       - run:
           name: Check choco
           command: choco --version
+      - run: 
+          name: Install mysql
+          command: choco install mysql
       - run: dotnet restore
       - run: dotnet build --configuration Release --no-restore
 workflows:
