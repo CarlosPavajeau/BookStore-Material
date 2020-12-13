@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  win: circleci/windows@2.2.0
+  win: circleci/windows@2.4.0
   node: circleci/node@3.0.1
 
 jobs:
@@ -12,10 +12,10 @@ jobs:
       - checkout
       - run:
           name: Check PowerShell version
-          run: $PSVersionTable.PSVersion
+          command: $PSVersionTable.PSVersion
       - run:
           name: Try install mysql
-          run: Find-Package mysql | Install-Package
+          command: Find-Package mysql | Install-Package
       - run: dotnet restore
       - run: dotnet build --configuration Release --no-restore
 workflows:
