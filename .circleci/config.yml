@@ -14,8 +14,8 @@ jobs:
           name: Check PowerShell version
           command: $PSVersionTable.PSVersion
       - run:
-          name: Try install mysql
-          command: Find-Package mysql | Install-Package
+          name: Check choco
+          command: choco --version
       - run: dotnet restore
       - run: dotnet build --configuration Release --no-restore
 workflows:
